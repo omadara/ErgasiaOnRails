@@ -21,3 +21,10 @@
 /yarn-error.log
 
 .byebug_history
+
+.floo
+.flooignore
+
+.idea/ErgasiaOnRails.iml
+
+Gemfile.lock
