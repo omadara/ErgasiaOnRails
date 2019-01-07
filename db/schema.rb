@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190107180536) do
+ActiveRecord::Schema.define(version: 20190107224937) do
 
   create_table "users", force: :cascade do |t|
     t.string "username"
@@ -18,6 +18,8 @@ ActiveRecord::Schema.define(version: 20190107180536) do
     t.string "google_uid"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "first_name"
+    t.string "last_name"
   end
 
 end

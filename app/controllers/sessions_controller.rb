@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
     user = User.find_by_username(params[:username])
     if user.present? and user.password == params[:password]
       session[:user_id] = user.id
-      flash[:success] = "Welcome back, #{user.username}!"
+      flash[:success] = "Welcome back, #{user.username_or_fullname}!"
       redirect_to root_path
     else
       flash[:warning] = "Invalid username or password"
@@ -13,8 +13,15 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    flash[:success] = "See you again, #{current_user.username}!"
+    flash[:success] = "See you again, #{current_user.username_or_fullname}!"
     session[:user_id] = nil
+    redirect_to root_path
+  end
+
+  def login_from_google
+    user = User.find_or_create_from_auth_hash(request.env["omniauth.auth"])
+    session[:user_id] = user.id
+    flash[:success] = "Welcome back, #{user.username_or_fullname}!"
     redirect_to root_path
   end
 
