@@ -3,6 +3,9 @@ Rails.application.routes.draw do
 
   root to: 'pages#index'
 
+  get 'register', to: 'pages#register', as: 'register_page'
+  post 'register', to: 'pages#register_post', as: 'register_post'
+
   get 'login', to: 'pages#login', as: 'login_page'
   post 'login', to: 'sessions#login', as: 'login_post'
   get 'logout', to: 'sessions#destroy', as: 'logout'
@@ -11,5 +14,4 @@ Rails.application.routes.draw do
   get 'auth/google_oauth2/callback', to: 'sessions#login_from_google'
   get 'auth/failure', to: redirect('/')
 
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

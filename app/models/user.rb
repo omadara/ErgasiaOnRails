@@ -2,6 +2,9 @@ require 'bcrypt'
 
 class User < ApplicationRecord
   has_secure_password
+  validates :username, uniqueness: true, presence: true, length: {minimum: 4}, if: :is_normal_acc
+  validates :first_name, presence: true, length: {maximum: 50}
+  validates :last_name, presence: true, length: {maximum: 50}
 
   def password
     @password ||= BCrypt::Password.new(password_digest) if password_digest.present?
@@ -13,7 +16,6 @@ class User < ApplicationRecord
   end
 
   def self.find_or_create_from_auth_hash(auth)
-    puts auth.inspect
     where(google_uid: auth.uid).first_or_initialize.tap do |user|
       user.google_uid = auth.uid
       user.first_name = auth.info.first_name
@@ -23,8 +25,12 @@ class User < ApplicationRecord
     end
   end
 
-  def username_or_fullname
-    username ? "#{username}" : "#{first_name} #{last_name}"
+  def full_name
+    "#{first_name} #{last_name}"
+  end
+
+  def is_normal_acc
+    google_uid.blank?
   end
 
 end
