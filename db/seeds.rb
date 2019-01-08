@@ -10,3 +10,11 @@ require 'bcrypt'
 User.delete_all
 User.create!(username: 'user', password_digest: BCrypt::Password.create('pass'),
              first_name: 'Firstname', last_name: 'Lastname')
+
+Category.delete_all
+Category.create!(name: 'Sports')
+Category.create!(name: 'News')
+Category.create!(name: 'Memes')
+Category.create!(name: 'Gossip')
+Category.create!(name: 'Style')
+Category.create!(name: 'Quotes')

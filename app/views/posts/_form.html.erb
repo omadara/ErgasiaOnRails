@@ -1,0 +1,25 @@
+<%= form_with(model: post, local: true) do |form| %>
+  <% if post.errors.any? %>
+      <ul>
+      <% post.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <p>
+    <%= collection_select :post, :category_id, Category.all, :id, :name, {} %>
+  </p>
+
+  <p>
+    <%= form.label :title %><br/>
+    <%= form.text_field :title, id: :post_title %>
+  </p>
+
+  <p>
+    <%= form.label :body %><br/>
+    <%= form.text_area :body, id: :post_body %>
+  </p>
+
+  <%= form.submit %>
+<% end %>

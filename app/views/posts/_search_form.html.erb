@@ -1,0 +1,5 @@
+<form action="<%= search_posts_path %>" method="get">
+  <%= label_tag :q, "Search:" %>
+  <%= text_field_tag :q, nil, placeholder: "title..." %>
+  <%= submit_tag "Search", name: nil %>
+</form>

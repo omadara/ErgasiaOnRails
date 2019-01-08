@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get 'sessions/login'
-
   root to: 'pages#index'
 
   get 'register', to: 'pages#register', as: 'register_page'
@@ -14,4 +12,6 @@ Rails.application.routes.draw do
   get 'auth/google_oauth2/callback', to: 'sessions#login_from_google'
   get 'auth/failure', to: redirect('/')
 
+  resources :posts
+  get 'posts', to: 'posts#index', as: 'search_posts'
 end

@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  skip_before_action :require_login!
 
   def login
     user = User.find_by_username(params[:username])
