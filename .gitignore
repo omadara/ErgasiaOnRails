@@ -25,6 +25,10 @@
 .floo
 .flooignore
 
+.idea/
+.idea/workspace.xml
 .idea/ErgasiaOnRails.iml
 
 Gemfile.lock
+
+/config/app_environment_variables.rb
