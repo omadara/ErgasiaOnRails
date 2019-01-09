@@ -7,6 +7,7 @@
 <% Category.all.each do |category| %>
   <h3><%= category.name.capitalize %></h3>
     <% category.recent_posts.each do |p| %>
+      <hr/>
       <%= render 'posts/post', post: p, link_show: true, display_category: false %>
     <br/>
     <% end %>

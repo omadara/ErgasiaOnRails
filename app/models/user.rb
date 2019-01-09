@@ -35,4 +35,13 @@ class User < ApplicationRecord
     google_uid.blank?
   end
 
+  def friends
+    Friend.where('user1_id = ? OR user2_id = ?', id, id) \
+      .collect{|f| f.user1_id == id ? f.user2 : f.user1}
+  end
+
+  def not_friends
+    User.all - friends - [self]
+  end
+
 end

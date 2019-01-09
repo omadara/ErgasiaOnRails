@@ -20,7 +20,7 @@ body {
 
 .sidenav {
     height: 100%;
-    width: 200px;
+    width: 300px;
     position: fixed;
     z-index: 1;
     top: 0;
@@ -31,22 +31,25 @@ body {
     border-left: 4px solid #1c1a1a;
 }
 
-.sidenav a {
-    padding: 6px 6px 6px 32px;
+.sidenav-item, .sidenav-item a {
+    padding: 6px 6px 6px 6px;
     text-decoration: none;
     font-size: 18px;
     color: #bbbbbb;
-    display: block;
 }
 
-.sidenav a:hover {
-    color: #f1f1f1;
+.sidenav-item:hover {
     background-color: #606060;
+}
+
+.sidenav-item a:hover {
+    color: #f1f1f1;
 }
 
 .sidenav-header {
     padding: 6px 6px 6px 32px;
     text-decoration: none;
+    text-align: center;
     font-size: 18px;
     color: #f1f1f1;
     display: block;
@@ -55,11 +58,6 @@ body {
 }
 
 .main {
-    margin-right: 200px; /* Same as the width of the sidenav */
-}
-
-@media screen and (max-height: 450px) {
-    .sidenav {padding-top: 15px;}
-    .sidenav a {font-size: 18px;}
+    margin-right: 300px; /* Same as the width of the sidenav */
 }
 
