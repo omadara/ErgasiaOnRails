@@ -1,0 +1,10 @@
+<h2><%= @user.full_name %></h2>
+
+<i>joined on </i><%= @user.created_at.to_s %>
+
+<br/>
+<h3>Posts:</h3>
+<% @user.posts.each do |p| %>
+  <hr/>
+  <%= render 'posts/post', post: p, link_show: true, display_category: true %>
+<% end %>

@@ -21,6 +21,22 @@
     </header>
 
     <%= render 'layouts/messages' %>
-    <%= yield %>
+
+    <div class="main" style="<%= "margin-right:0px" unless user_signed_in? %>">
+      <%= yield %>
+    </div>
+    <% if user_signed_in? %>
+    <div class="sidenav">
+      <div class="sidenav-header">Friends</div>
+      <a href="#">user1</a> <!-- TODO -->
+      <a href="#">user2</a> <!-- TODO -->
+      <a href="#">user3</a> <!-- TODO -->
+      <div class="sidenav-header">All</div>
+      <% User.all.each do |user| %>
+      <%= link_to user.full_name, user %>
+      <% end %>
+    </div>
+    <% end %>
+
   </body>
 </html>

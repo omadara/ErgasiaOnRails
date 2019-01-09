@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+  before_action :check_if_authorized, only: [:edit, :update, :destroy]
 
   # GET /posts
   def index
@@ -56,4 +57,11 @@ class PostsController < ApplicationController
     def post_params
       params.require(:post).permit(:category_id, :title, :body)
     end
+
+    def check_if_authorized
+      if Post.find(params[:id]).user_id != current_user.id
+        redirect_to posts_url, alert: 'You must be the owner of the post'
+      end
+    end
+
 end

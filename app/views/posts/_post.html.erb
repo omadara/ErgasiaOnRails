@@ -1,0 +1,27 @@
+<p>
+  <strong>Title:</strong>
+  <%= post.title %>
+</p>
+
+<p>
+  <strong>Body:</strong>
+  <%= post.body %>
+</p>
+
+<% if display_category.present? %>
+<p>
+  <strong>Category:</strong>
+  <%= post.category.name.capitalize %>
+</p>
+<% end %>
+
+<p>
+  <strong>Created at:</strong>
+  <%= post.created_at.to_s %>
+</p>
+
+<%= link_to 'Show', post if link_show.present? %>
+<% if current_user == post.user %>
+  <%= link_to 'Edit', edit_post_path(post) %>
+  <%= link_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure?' } %>
+<% end %>

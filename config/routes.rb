@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   root to: 'pages#index'
 
   get 'register', to: 'pages#register', as: 'register_page'
@@ -14,4 +15,6 @@ Rails.application.routes.draw do
 
   resources :posts
   get 'posts', to: 'posts#index', as: 'search_posts'
+
+  get 'user/:id', to: 'user#show', as: 'user'
 end

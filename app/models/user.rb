@@ -2,6 +2,8 @@ require 'bcrypt'
 
 class User < ApplicationRecord
   has_secure_password
+  has_many :posts, dependent: :destroy
+
   validates :username, uniqueness: true, presence: true, length: {minimum: 4}, if: :is_normal_acc
   validates :first_name, presence: true, length: {maximum: 50}
   validates :last_name, presence: true, length: {maximum: 50}
