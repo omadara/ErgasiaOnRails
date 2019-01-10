@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190109192816) do
+ActiveRecord::Schema.define(version: 20190110111617) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20190109192816) do
     t.integer "user2_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "accepted"
     t.index ["user1_id"], name: "index_friends_on_user1_id"
     t.index ["user2_id"], name: "index_friends_on_user2_id"
   end

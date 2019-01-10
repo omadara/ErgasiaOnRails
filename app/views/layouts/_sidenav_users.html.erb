@@ -2,18 +2,34 @@
   <div class="sidenav-header">Friends</div>
   <% current_user.friends.each do |friend| %>
     <div class="sidenav-item">
-      <!-- TODO show pending request icon instead -->
+      <!-- TODO open chat on click -->
       <a href=""><span class="fas fa-comment"></span></a>
+      <a href="<%= remove_friend_path(friend) %>"><span class="fas fa-times"></span></a>
       <%= link_to friend.full_name, friend %>
     </div>
   <% end %>
 
-  <div class="sidenav-header">All</div>
-  <% current_user.not_friends.each do |stranger| %>
+  <div class="sidenav-header">Pending</div>
+  <% current_user.friends_pending_received.each do |user| %>
     <div class="sidenav-item">
-      <!-- TODO make link send friend request and switch to another icon to highlight sent -->
-      <a href=""><span class="fas fa-user-plus"></span></a>
-      <%= link_to stranger.full_name, stranger %>
+      <a href="<%= accept_friend_request_path(user) %>"><span class="fas fa-check"></span></a>
+      <a href="<%= decline_friend_request_path(user) %>"><span class="fas fa-times"></span></a>
+      <%= link_to user.full_name, user %>
     </div>
   <% end %>
+
+  <div class="sidenav-header">All</div>
+  <% current_user.friends_pending_sent.each do |user| %>
+    <div class="sidenav-item">
+      <a href="#"><span class="fas fa-user-clock"></span></a>
+      <%= link_to user.full_name, user %>
+    </div>
+  <% end %>
+  <% current_user.not_friends.each do |user| %>
+    <div class="sidenav-item">
+      <a href="<%= send_friend_request_path(user) %>"><span class="fas fa-user-plus"></span></a>
+      <%= link_to user.full_name, user %>
+    </div>
+  <% end %>
+
 </div>

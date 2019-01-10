@@ -17,4 +17,8 @@ Rails.application.routes.draw do
   get 'posts', to: 'posts#index', as: 'search_posts'
 
   get 'user/:id', to: 'user#show', as: 'user'
+  get 'user/:id/send_friend_request', to: 'user#send_friend_request', as: 'send_friend_request'
+  get 'user/:id/accept_friend_request', to: 'user#accept_friend_request', as: 'accept_friend_request'
+  get 'user/:id/decline_friend_request', to: 'user#decline_friend_request', as: 'decline_friend_request'
+  get 'user/:id/remove_friend', to: 'user#remove_friend', as: 'remove_friend'
 end

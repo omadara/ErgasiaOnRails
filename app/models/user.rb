@@ -36,12 +36,20 @@ class User < ApplicationRecord
   end
 
   def friends
-    Friend.where('user1_id = ? OR user2_id = ?', id, id) \
+    Friend.where('(user1_id = ? OR user2_id = ?) AND accepted = ?', id, id, true) \
       .collect{|f| f.user1_id == id ? f.user2 : f.user1}
   end
 
+  def friends_pending_sent
+    Friend.where(user1_id: id, accepted: false).collect{|f| f.user2}
+  end
+
+  def friends_pending_received
+    Friend.where(user2_id: id, accepted: false).collect{|f| f.user1}
+  end
+
   def not_friends
-    User.all - friends - [self]
+    User.all - friends - friends_pending_sent - friends_pending_received - [self]
   end
 
 end
