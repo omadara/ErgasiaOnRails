@@ -3,50 +3,26 @@
   <head>
     <title><%= content_for?(:title) ? yield(:title) : "ErgasiaOnRails" %></title>
     <%= csrf_meta_tags %>
-    <%= stylesheet_link_tag    'application.css', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/solid.css" integrity="sha384-+0VIRx+yz1WBcCTXBkVQYIBVNEFH1eP6Zknm16roZCyeNg2maWEpk/l/KsyFKs7G" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/fontawesome.css" integrity="sha384-jLuaxTTBR42U2qJ/pm4JRouHkEDHkVqH0T1nyQXn1mZ7Snycpf6Rl25VBNthU4z0" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <%= javascript_include_tag 'application.js', 'data-turbolinks-track': 'reload' %>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%= stylesheet_link_tag    'application.css', media: 'all', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <header>
-      <%= link_to 'Home', root_path %>
-      <% if user_signed_in? %>
-        <li><%= link_to 'Logout', logout_path %></li>
-        <li><%= link_to 'Posts', posts_path %></li>
-      <% else %>
-        <li><%= link_to 'Login', login_page_path %></li>
-        <li><%= link_to 'Register', register_page_path %></li>
-      <% end %>
-    </header>
-
-    <%= render 'layouts/messages' %>
+    <%= render 'layouts/navbar_menu' %>
 
     <div class="main" style="<%= "margin-right:0px" unless user_signed_in? %>">
+      <%= render 'layouts/messages' %>
       <%= yield %>
     </div>
 
     <% if user_signed_in? %>
-    <div class="sidenav">
-      <div class="sidenav-header">Friends</div>
-      <% current_user.friends.each do |friend| %>
-        <div class="sidenav-item">
-          <a href=""><span class="fas fa-comment"></span></a>
-          <%= link_to friend.full_name, friend %>
-        </div>
-      <% end %>
-
-      <div class="sidenav-header">All</div>
-      <% current_user.not_friends.each do |stranger| %>
-        <div class="sidenav-item">
-          <a href=""><span class="fas fa-user-plus"></span></a> <!-- TODO make link send friend request -->
-          <%= link_to stranger.full_name, stranger %>
-        </div>
-      <% end %>
-    </div>
+      <%= render 'layouts/sidenav_users' %>
     <% end %>
-
   </body>
 </html>

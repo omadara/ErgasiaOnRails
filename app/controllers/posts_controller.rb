@@ -29,7 +29,8 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
     @post.user_id = current_user.id
     if @post.save
-      redirect_to @post, notice: 'Post was successfully created.'
+      flash[:success] = 'Post created.'
+      redirect_to @post
     else
       render :new
     end
@@ -39,7 +40,8 @@ class PostsController < ApplicationController
   def update
     @post = Post.find(params[:id])
     if @post.update(post_params)
-      redirect_to @post, notice: 'Post was successfully updated.'
+      flash[:success] = 'Post updated.'
+      redirect_to @post
     else
       render :edit
     end
@@ -49,7 +51,8 @@ class PostsController < ApplicationController
   def destroy
     @post = Post.find(params[:id])
     @post.destroy
-    redirect_to posts_url, notice: 'Post was successfully deleted.'
+    flash[:info] = 'Post deleted.'
+    redirect_to posts_url
   end
 
   private
@@ -60,7 +63,8 @@ class PostsController < ApplicationController
 
     def check_if_authorized
       if Post.find(params[:id]).user_id != current_user.id
-        redirect_to posts_url, alert: 'You must be the owner of the post'
+        flash[:danger] = 'You must be the owner of the post'
+        redirect_to posts_url
       end
     end
 

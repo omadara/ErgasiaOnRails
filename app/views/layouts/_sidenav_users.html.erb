@@ -1,0 +1,19 @@
+<div class="sidenav">
+  <div class="sidenav-header">Friends</div>
+  <% current_user.friends.each do |friend| %>
+    <div class="sidenav-item">
+      <!-- TODO show pending request icon instead -->
+      <a href=""><span class="fas fa-comment"></span></a>
+      <%= link_to friend.full_name, friend %>
+    </div>
+  <% end %>
+
+  <div class="sidenav-header">All</div>
+  <% current_user.not_friends.each do |stranger| %>
+    <div class="sidenav-item">
+      <!-- TODO make link send friend request and switch to another icon to highlight sent -->
+      <a href=""><span class="fas fa-user-plus"></span></a>
+      <%= link_to stranger.full_name, stranger %>
+    </div>
+  <% end %>
+</div>

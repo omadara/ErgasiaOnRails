@@ -18,6 +18,7 @@ body {
     font-family: "Segoe UI", "Verdana", "Sans-Serif";
 }
 
+/* ================== SIDENAV =================*/
 .sidenav {
     height: 100%;
     width: 300px;
@@ -25,10 +26,11 @@ body {
     z-index: 1;
     top: 0;
     right: 0;
-    background-color: #3e3e3e;
+    background-color: #2f2f2f;
     overflow-x: hidden;
     padding-top: 20px;
     border-left: 4px solid #1c1a1a;
+    margin-top: 40px;
 }
 
 .sidenav-item, .sidenav-item a {
@@ -59,5 +61,23 @@ body {
 
 .main {
     margin-right: 300px; /* Same as the width of the sidenav */
+    margin-top: 70px;
+    margin-left: 15px;
 }
 
+/*================= NAVBAR ====================*/
+.navbar-inverse {
+    background-color: #232322;
+    border-radius: 0px;
+    font-size: 18px;
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    width: 100%;
+}
+
+.navbar-header .navbar-brand:hover,
+.navbar-header .navbar-brand:hover {
+    background-color: #444343;
+    color: #f4efef;
+}
