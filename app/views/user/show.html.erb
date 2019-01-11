@@ -3,8 +3,11 @@
 <i>joined on </i><%= @user.created_at.to_s %>
 
 <br/>
-<h3>Posts:</h3>
+<% if @user.posts.any? %>
+<h3>Posts</h3>
 <% @user.posts.each do |p| %>
-  <hr/>
   <%= render 'posts/post', post: p, link_show: true, display_category: true %>
+<% end %>
+<% else %>
+<h4>No posts from this user.</h4>
 <% end %>

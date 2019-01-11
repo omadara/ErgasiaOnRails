@@ -1,15 +1,11 @@
-<h1>Posts</h1>
-
 <%= render 'posts/search_form' %>
 
-<%= link_to 'New Post', new_post_path %><br/>
+<%= link_to 'New Post', new_post_path, class: 'btn btn-primary' %><br/>
 
 <% Category.all.each do |category| %>
   <h3><%= category.name.capitalize %></h3>
     <% category.recent_posts.each do |p| %>
-      <hr/>
       <%= render 'posts/post', post: p, link_show: true, display_category: false %>
-    <br/>
     <% end %>
   <br/>
 <% end %>

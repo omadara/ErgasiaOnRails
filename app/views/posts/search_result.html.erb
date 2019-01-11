@@ -1,8 +1,8 @@
 <h1>Search Results</h1>
 
-<%= render 'posts/search_form' %> <br/>
+<%= render 'posts/search_form' %>
+<br/>
 
 <% @posts.each do |p| %>
-  <hr/>
   <%= render 'posts/post', post: p, link_show: true, display_category: true %>
 <% end %>

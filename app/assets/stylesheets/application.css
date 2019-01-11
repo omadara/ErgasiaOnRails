@@ -19,6 +19,13 @@ body {
     background: #e7e7e7;
 }
 
+hr {
+    display: block;
+    height: 3px;
+    border-top: 1px solid #969696;
+    margin: 5px 0;
+}
+
 /* ================== SIDENAV =================*/
 .sidenav {
     height: 100%;
@@ -61,7 +68,7 @@ body {
 }
 
 .main {
-    margin-right: 300px; /* Same as the width of the sidenav */
+    margin-right: 315px; /* Same as the width of the sidenav */
     margin-top: 70px;
     margin-left: 15px;
 }
@@ -154,4 +161,23 @@ body {
 .chat-time-left {
     float: left;
     color: #313131;
+}
+
+/*============ CARDS ====================*/
+.card {
+    display: inline-block; /*wrap content */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    border-radius: 10px;
+    background: #f3f3f3;
+    padding: 10px;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.card-post {
+    width: 100%;
+    margin-bottom: 15px;
 }

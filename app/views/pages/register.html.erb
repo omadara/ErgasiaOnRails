@@ -1,4 +1,6 @@
-<h1>Register new account</h1>
+<div style="text-align: center">
+  <div class="card">
+  <h1>Register</h1>
 <%= form_for :user, url: register_post_path, local: true do |f| %>
 
   <% if @user.errors.any? %>
@@ -30,8 +32,9 @@
     <%= f.password_field :password_confirmation %>
   </p>
 
-  <%= submit_tag 'Register' %>
+  <%= submit_tag 'Register', class: 'btn btn-primary' %>
 <% end %>
 
 <br/>
 <%= link_to 'or register with Google', login_google_path %>
+</div></div>
