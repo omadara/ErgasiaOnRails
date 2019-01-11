@@ -25,6 +25,7 @@
     <% if user_signed_in? %>
       <%= render 'layouts/sidenav_users' %>
       <%= render 'layouts/chat_popups' %>
+      <%= javascript_include_tag 'chat.js', 'data-turbolinks-track': 'reload' %>
     <% end %>
   </body>
 </html>

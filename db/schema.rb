@@ -36,7 +36,6 @@ ActiveRecord::Schema.define(version: 20190111150103) do
     t.integer "user2_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "request"
     t.boolean "accepted"
     t.index ["user1_id"], name: "index_friends_on_user1_id"
     t.index ["user2_id"], name: "index_friends_on_user2_id"
