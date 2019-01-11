@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
 
+
   root to: 'pages#index'
+
+  mount ActionCable.server => '/cable'
 
   get 'register', to: 'pages#register', as: 'register_page'
   post 'register', to: 'pages#register_post', as: 'register_post'
@@ -21,4 +24,6 @@ Rails.application.routes.draw do
   get 'user/:id/accept_friend_request', to: 'user#accept_friend_request', as: 'accept_friend_request'
   get 'user/:id/decline_friend_request', to: 'user#decline_friend_request', as: 'decline_friend_request'
   get 'user/:id/remove_friend', to: 'user#remove_friend', as: 'remove_friend'
+
+
 end
