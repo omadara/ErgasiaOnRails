@@ -1,0 +1,77 @@
+<div class="chat-popups-container">
+  <div class="chat-popup" id="cloneMe" style="display: none">
+    <div class="chat-popup-header">
+      Firstname LastName
+      <span class="fa fa-times" onclick="closeChatPopup(this)"></span>
+    </div>
+
+    <!--  stub messages-->
+    <div class="chat-messages-container">
+      <div class="chat-message">
+        <p>Fake message one</p>
+        <span class="chat-time-right">11:00</span>
+      </div>
+      <div class="chat-message chat-message-darker">
+        <p>Fake message two</p>
+        <span class="chat-time-left">11:01</span>
+      </div>
+      <div class="chat-message">
+        <p>Fake message three</p>
+        <span class="chat-time-right">11:02</span>
+      </div>
+      <div class="chat-message chat-message-darker">
+        <p>Fake message four</p>
+        <span class="chat-time-left">11:05</span>
+      </div>
+      <div class="chat-message">
+        <p>Fake message five</p>
+        <span class="chat-time-right">11:02</span>
+      </div>
+      <div class="chat-message chat-message-darker">
+        <p>Fake message six seven eight nice ten long message to test max-width</p>
+        <span class="chat-time-left">11:05</span>
+      </div>
+    </div>
+
+    <input type="text" class="chat-input-text" onkeyup="sendMessage(this, event)" placeholder="Send a message"/>
+  </div>
+</div>
+
+<script type="text/javascript">
+    function createChat(friend_id, friend_name) {
+        //ignore if already open
+        if(document.getElementById("chatPopup"+friend_id) != null)
+            return;
+        let original = document.getElementById("cloneMe");
+        let clone = original.cloneNode(true);
+        clone.id = "chatPopup" + friend_id;
+        clone.style.display = "block";
+        clone.children[0].firstChild.textContent = friend_name;
+        clone.data = {friend_id, friend_name};
+        original.parentNode.appendChild(clone);
+    }
+
+    function closeChatPopup(closeButton) {
+        closeButton.parentElement.parentElement.remove();
+    }
+
+    function sendMessage(inputTag, event) {
+        if(event.key === "Enter") {
+            inputTag.value = "";
+        }
+    }
+
+    function appendMessageTo(chatPopupId, msg, meOrYou, time) {
+        let messagesContainer = document.getElementById(chatPopupId).children[1];
+        let msgDiv = document.createElement('div');
+        if(meOrYou){
+            msgDiv.className = "chat-message";
+            msgDiv.innerHTML = "<p>" + msg + "</p><span class=\"chat-time-right\">" + time + "</span>";
+        }else{
+            msgDiv.className = "chat-message chat-message-darker";
+            msgDiv.innerHTML = "<p>" + msg + "</p><span class=\"chat-time-left\">" + time + "</span>";
+        }
+        messagesContainer.appendChild(msgDiv);
+    }
+
+</script>

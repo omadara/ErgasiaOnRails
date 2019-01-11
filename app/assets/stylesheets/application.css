@@ -16,6 +16,7 @@
 
 body {
     font-family: "Segoe UI", "Verdana", "Sans-Serif";
+    background: #e7e7e7;
 }
 
 /* ================== SIDENAV =================*/
@@ -80,4 +81,77 @@ body {
 .navbar-header .navbar-brand:hover {
     background-color: #444343;
     color: #f4efef;
+}
+
+/*=============== CHAT POPUP ===================*/
+.chat-popups-container {
+    position: fixed;
+    bottom: 0;
+    right: 300px; /* width of sidenav */
+    z-index: 1;
+    width: 100%;
+}
+
+.chat-popup {
+    display: none;
+    border: 3px solid #1c1a1a;
+    background: #2f342f;
+    border-radius: 5px 5px 0 0;
+    padding: 5px;
+    margin: 0 0 0 5px;
+    float: right;
+}
+
+.chat-popup-header {
+    color: #ffffff;
+    margin-bottom: 5px;
+}
+
+.chat-popup-header span{
+    float: right;
+    font-size: 20px;
+}
+
+.chat-messages-container {
+    max-width: 250px;
+    max-height: 300px;
+    overflow: auto;
+}
+
+.chat-input-text {
+    width: 100%;
+    border-radius: 5px;
+    margin-top: 5px;
+    padding: 5px;
+}
+
+/*=========== CHAT MESSAGES ================*/
+.chat-message {
+    border: 2px solid #dedede;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px 0;
+    font-size: 12px;
+}
+
+.chat-message-darker {
+    border-color: #7d7d7d;
+    background-color: #cbcbcb;
+}
+
+.chat-message::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.chat-time-right {
+     float: right;
+     color: #2f2f2f;
+ }
+
+.chat-time-left {
+    float: left;
+    color: #313131;
 }
