@@ -1,38 +1,10 @@
 <div class="chat-popups-container">
   <div class="chat-popup" id="cloneMe" style="display: none">
     <div class="chat-popup-header">
-      Firstname LastName
       <span class="fa fa-times" onclick="closeChatPopup(this)"></span>
     </div>
-
-    <!--  stub messages-->
     <div class="chat-messages-container">
-      <div class="chat-message">
-        <p>Fake message one</p>
-        <span class="chat-time-right">11:00</span>
-      </div>
-      <div class="chat-message chat-message-darker">
-        <p>Fake message two</p>
-        <span class="chat-time-left">11:01</span>
-      </div>
-      <div class="chat-message">
-        <p>Fake message three</p>
-        <span class="chat-time-right">11:02</span>
-      </div>
-      <div class="chat-message chat-message-darker">
-        <p>Fake message four</p>
-        <span class="chat-time-left">11:05</span>
-      </div>
-      <div class="chat-message">
-        <p>Fake message five</p>
-        <span class="chat-time-right">11:02</span>
-      </div>
-      <div class="chat-message chat-message-darker">
-        <p>Fake message six seven eight nice ten long message to test max-width</p>
-        <span class="chat-time-left">11:05</span>
-      </div>
     </div>
-
     <input type="text" class="chat-input-text" onkeyup="sendMessage(this, event)" placeholder="Send a message"/>
   </div>
 </div>
@@ -47,7 +19,31 @@
         clone.id = "chatPopup" + friend_id;
         clone.style.display = "block";
         clone.children[0].firstChild.textContent = friend_name;
-        clone.data = {friend_id, friend_name};
+        let gotMessageHistory = false;
+        clone.chat = App.cable.subscriptions.create({
+            channel: "ChatChannel", friend_id}, {
+
+            //called when connected to the server
+            connected: function() {
+                //calls a method on the channel on server
+                this.perform("getChatMessageHistory")
+            },
+
+            //called when received data from server through broadcast
+            received: function(data) {
+                console.log("received data", data);
+                if(data.event === "message_history" && !gotMessageHistory) {
+                    gotMessageHistory = true;
+                    for(let i = 0; i < data.messages.length; i++) {
+                        let message = data.messages[i];
+                        appendMessageTo(clone.id, message.user, message.msg, message.time);
+                    }
+                }else if(data.event === "message") {
+                    let message = data.message;
+                    appendMessageTo(clone.id, message.user, message.msg, message.time);
+                }
+            }
+        });
         original.parentNode.appendChild(clone);
     }
 
@@ -57,21 +53,25 @@
 
     function sendMessage(inputTag, event) {
         if(event.key === "Enter") {
+            let chatDiv = inputTag.parentElement;
+            let msg = inputTag.value;
+            chatDiv.chat.perform("sendChatMessage", {msg});
             inputTag.value = "";
         }
     }
 
-    function appendMessageTo(chatPopupId, msg, meOrYou, time) {
+    function appendMessageTo(chatPopupId, user, msg, time) {
         let messagesContainer = document.getElementById(chatPopupId).children[1];
         let msgDiv = document.createElement('div');
-        if(meOrYou){
+        if(user === "<%= current_user.full_name %>"){
             msgDiv.className = "chat-message";
-            msgDiv.innerHTML = "<p>" + msg + "</p><span class=\"chat-time-right\">" + time + "</span>";
         }else{
             msgDiv.className = "chat-message chat-message-darker";
-            msgDiv.innerHTML = "<p>" + msg + "</p><span class=\"chat-time-left\">" + time + "</span>";
         }
+        msgDiv.innerHTML = `<b>${user}</b><span class="chat-time">${time}</span><p class="wrap-content">${msg}</p>`;
         messagesContainer.appendChild(msgDiv);
+        let msgContainer = document.getElementById(chatPopupId).children[1];
+        msgContainer.scrollTop = msgContainer.scrollHeight - msgContainer.clientHeight;
     }
 
 </script>

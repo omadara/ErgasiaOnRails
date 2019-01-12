@@ -3,7 +3,7 @@
   <% current_user.friends.each do |friend| %>
     <div class="sidenav-item">
       <%# calls openChat() on click event, sending id and name %>
-      <a href="#" onclick="createChat('<%=friend.id%>', '<%=friend.full_name%>')"><span class="fas fa-comment"></span></a>
+      <a href="#" onclick="createChat(<%=friend.id%>, '<%=friend.full_name%>')"><span class="fas fa-comment"></span></a>
       <a href="<%= remove_friend_path(friend) %>"><span class="fas fa-times"></span></a>
       <%= link_to friend.full_name, friend %>
     </div>
