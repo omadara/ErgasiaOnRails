@@ -13,22 +13,30 @@
     //subscription to check if should open new chat popups on new messages
     App.cable.subscriptions.create({channel: "ChatChannel", type: "new_messages_subscription"}, {
         received: function (data) {
-            createChat(data.friend_id, data.friend_name);
+            createNormalChat(data.friend_id, data.friend_name);
         }
     });
 
-    function createChat(friend_id, friend_name) {
+    function createNormalChat(friend_id, title) {
+        createChat("chatPopup", friend_id, title, "chat_subscription");
+    }
+
+    function createGroupChat(group_id, title) {
+        createChat("chatPopupGroup", group_id, title, "chat_subscription_group");
+    }
+
+    function createChat(chatIdPrefix, id, title, channelType) {
         //ignore if already open
-        if(document.getElementById("chatPopup"+friend_id) != null)
+        if(document.getElementById(chatIdPrefix + id) != null)
             return;
         let original = document.getElementById("cloneMe");
         let clone = original.cloneNode(true);
-        clone.id = "chatPopup" + friend_id;
+        clone.id = chatIdPrefix + id;
         clone.style.display = "block";
-        clone.children[0].firstChild.textContent = friend_name;
+        clone.children[0].firstChild.textContent = title;
         let gotMessageHistory = false;
         clone.chat = App.cable.subscriptions.create({
-            channel: "ChatChannel", type: "chat_subscription", friend_id: friend_id}, {
+            channel: "ChatChannel", type: channelType, chatId: id}, {
 
             //called when connected to the server
             connected: function() {
@@ -82,5 +90,5 @@
         let msgContainer = document.getElementById(chatPopupId).children[1];
         msgContainer.scrollTop = msgContainer.scrollHeight - msgContainer.clientHeight;
     }
-
 </script>
+

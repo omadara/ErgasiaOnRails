@@ -53,4 +53,8 @@ class User < ApplicationRecord
     User.all - friends - friends_pending_sent - friends_pending_received - [self]
   end
 
+  def groups
+    chatrooms.where('title IS NOT NULL')
+  end
+
 end

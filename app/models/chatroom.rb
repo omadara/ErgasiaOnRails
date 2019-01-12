@@ -11,4 +11,8 @@ class Chatroom < ApplicationRecord
     end
     chatroom
   end
+
+  def contains_user?(user_id)
+    user_ids.include?(user_id)
+  end
 end
