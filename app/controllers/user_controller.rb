@@ -6,6 +6,7 @@ class UserController < ApplicationController
   def send_friend_request
     if Friend.create(user1_id: current_user.id, user2_id: params[:id], accepted: false)
       flash[:info] = 'Friend request sent.'
+      NotificationChannel.friendRequest(current_user.full_name, params[:id])
     else
       flash[:warning] = 'Could not sent friend request.'
     end

@@ -14,6 +14,7 @@ class PagesController < ApplicationController
     @user.password_digest = BCrypt::Password.create(params[:user][:password])
     if @user.save
       flash[:success] = "Account registered, you can now login"
+      NotificationChannel.newUser(@user.full_name)
       redirect_to login_page_path
     else
       render 'register'

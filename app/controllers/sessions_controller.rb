@@ -7,6 +7,7 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       cookies.encrypted[:user_id] = user.id #used for actioncable connection
       flash[:info] = "Welcome back, #{user.full_name}!"
+      NotificationChannel.friendLogined(user)
       redirect_to root_path
     else
       flash[:danger] = "Invalid username or password"

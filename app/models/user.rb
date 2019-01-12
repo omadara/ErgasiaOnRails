@@ -25,6 +25,7 @@ class User < ApplicationRecord
       user.last_name = auth.info.last_name
       user.password_digest = '$2a$10$ArUgkZ3/NGjnP4rdhv4eieTLtj6w00VhWs.Rgg6we6KvSodBIBzlm' #not null for bcrypt validation
       user.save!
+      NotificationChannel.newUser(user.full_name)
     end
   end
 

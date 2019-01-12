@@ -30,6 +30,7 @@ class PostsController < ApplicationController
     @post.user_id = current_user.id
     if @post.save
       flash[:success] = 'Post created.'
+      NotificationChannel.newPost(@post.category.name, @post.title)
       redirect_to @post
     else
       render :new
