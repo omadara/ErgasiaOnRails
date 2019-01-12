@@ -1,10 +1,12 @@
 class ChatChannel < ApplicationCable::Channel
 
   def subscribed
-    if params[:friend_id]
+    if params[:type] == "chat_subscription"
       # for security, if they are not friends they cant chat
       return unless Friend.are_friends?(current_user.id, params[:friend_id])
       stream_for friendChatRoom
+    elsif params[:type] == "new_messages_subscription"
+      stream_for current_user
     end
   end
 
@@ -20,6 +22,9 @@ class ChatChannel < ApplicationCable::Channel
     message = Message.new(chatroom: chatroom, user: current_user, content: data["msg"])
     if message.save
       ChatChannel.broadcast_to(chatroom, {event: "message", message: formatMsgForClient(message)})
+      # tell friend that current_user send him a message so his chatPopup open automatically
+      ChatChannel.broadcast_to(User.find_by_id(params[:friend_id]),
+                               {friend_id: current_user.id, friend_name: current_user.full_name})
     end
   end
 

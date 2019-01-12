@@ -10,6 +10,13 @@
 </div>
 
 <script type="text/javascript">
+    //subscription to check if should open new chat popups on new messages
+    App.cable.subscriptions.create({channel: "ChatChannel", type: "new_messages_subscription"}, {
+        received: function (data) {
+            createChat(data.friend_id, data.friend_name);
+        }
+    });
+
     function createChat(friend_id, friend_name) {
         //ignore if already open
         if(document.getElementById("chatPopup"+friend_id) != null)
@@ -21,7 +28,7 @@
         clone.children[0].firstChild.textContent = friend_name;
         let gotMessageHistory = false;
         clone.chat = App.cable.subscriptions.create({
-            channel: "ChatChannel", friend_id}, {
+            channel: "ChatChannel", type: "chat_subscription", friend_id: friend_id}, {
 
             //called when connected to the server
             connected: function() {
@@ -31,7 +38,6 @@
 
             //called when received data from server through broadcast
             received: function(data) {
-                console.log("received data", data);
                 if(data.event === "message_history" && !gotMessageHistory) {
                     gotMessageHistory = true;
                     for(let i = 0; i < data.messages.length; i++) {
@@ -48,7 +54,10 @@
     }
 
     function closeChatPopup(closeButton) {
-        closeButton.parentElement.parentElement.remove();
+        //close popup and stop subscription for that chat
+        let chatDiv = closeButton.parentElement.parentElement;
+        chatDiv.chat.unsubscribe();
+        chatDiv.remove();
     }
 
     function sendMessage(inputTag, event) {
