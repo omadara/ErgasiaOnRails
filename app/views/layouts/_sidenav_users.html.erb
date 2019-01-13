@@ -22,7 +22,7 @@
   <% current_user.groups.each do |group| %>
     <div class="sidenav-item">
       <a href="#" onclick="createGroupChat(<%=group.id%>, '<%=group.title%>')"><span class="fas fa-comments"></span></a>
-      <a href="<%= 'leavegroup' %>"><span class="fas fa-sign-out-alt"></span></a>
+      <a rel="nofollow" data-method="post" href="<%= groups_path+'/'+group.id.to_s+'/leave' %>"><span class="fas fa-sign-out-alt"></span></a>
       <a href="#" onclick="createGroupChat(<%=group.id%>, '<%=group.title%>')"><%= group.title %></a>
     </div>
   <% end %>

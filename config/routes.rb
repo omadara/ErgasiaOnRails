@@ -23,4 +23,10 @@ Rails.application.routes.draw do
   get 'user/:id/decline_friend_request', to: 'user#decline_friend_request', as: 'decline_friend_request'
   get 'user/:id/remove_friend', to: 'user#remove_friend', as: 'remove_friend'
 
+  get 'groups', to: 'groups#index', as: 'groups'
+  post 'groups', to: 'groups#create', as: 'create_group'
+  post 'groups/:id/join', to: 'groups#join'
+  post 'groups/:id/leave', to: 'groups#leave'
+  post 'groups/:id/transfer_ownership', to: 'groups#transfer'
+  delete 'groups/:id', to: 'groups#destroy'
 end

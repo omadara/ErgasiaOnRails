@@ -1,0 +1,44 @@
+<%= form_tag url: create_group_path do |f| %>
+  <%= text_field_tag :group_name, nil, placeholder: "Group name" %>
+  <%= submit_tag "Create group", name: nil, class: 'btn btn-default' %>
+<% end %>
+<hr/>
+<h3>My groups</h3>
+<% @my_groups.each do |group| %>
+  <div class="card">
+    <p>
+      Group name: <strong><%= group.title %></strong>
+      <br/>
+      Number of members: <%= group.users.all.count %>
+      <br/>
+      <%= link_to 'Delete','groups/'+group.id.to_s,method: :delete,data: {confirm: 'are you sure you want to delete your group?'} %>
+      <% if group.users.all.count > 1%>
+        <%= form_with url: groups_path+'/'+group.id.to_s+'/transfer_ownership' do |f| %>
+          <%= collection_select :chatroom,:user_id,group.users.except(@current_user),:id,:full_name %>
+          <%= submit_tag "Change ownership", name: nil, class: 'btn btn-default' %>
+        <% end %>
+      <% end %>
+
+
+    </p>
+  </div>
+<% end %>
+<hr/>
+<h3>All groups</h3>
+<% @all_groups.each do |group| %>
+  <div class="card">
+    <p>
+      Group name: <strong><%= group.title %></strong>
+      <br/>
+      Created by <%= group.user.full_name %>
+      <br/>
+      Number of members: <%= group.users.all.count %>
+      <br/>
+      <% if group.contains_user? @current_user.id %>
+        Joined that group  <%= link_to 'Leave the group','groups/'+group.id.to_s+'/leave',method: :post %>
+      <% else %>
+        <%= link_to 'Join','groups/'+group.id.to_s+'/join',method: :post %>
+      <% end %>
+    </p>
+  </div>
+<% end %>
