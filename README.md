@@ -1,24 +1,32 @@
-# README
+# ErgasiaOnRails
+Project made for Ruby On Rails course
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Steps to run locally
 
-Things you may want to cover:
+ErgasiaOnRails requires Ruby version 2+ and Rails 5+ (tested on those only).
 
-* Ruby version
+Install required gems from Gemfile:
+```
+bundle install
+```
 
-* System dependencies
+Create database and seed it with seeds.rb file:
 
-* Configuration
+```
+rake db:setup
+```
 
-* Database creation
+Optional: To support login and register features with Google+ account set the environment variables 
+GOOGLE_CLIENT_ID GOOGLE_CLIENT_SECRET to you got from your [Google Cloud Platform](https://console.cloud.google.com) project.
+You can set them on terminal before running rails server (see below) or creating `config/app_environment_variables.rb` like so:
+```ruby
+ENV["GOOGLE_CLIENT_ID"] = "....."
+ENV["GOOGLE_CLIENT_SECRET"] = "....."
+```
 
-* Database initialization
+Start Rails server:
+```
+rails server -b 127.0.0.1 -p 3000 -e development
+```
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Browse `localhost:3000` and ready to go!

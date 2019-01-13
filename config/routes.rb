@@ -29,4 +29,5 @@ Rails.application.routes.draw do
   post 'groups/:id/leave', to: 'groups#leave'
   post 'groups/:id/transfer_ownership', to: 'groups#transfer'
   delete 'groups/:id', to: 'groups#destroy'
+  get 'group/:id', to: 'groups#show', as: 'group'
 end

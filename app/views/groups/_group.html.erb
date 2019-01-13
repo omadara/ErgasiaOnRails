@@ -1,0 +1,27 @@
+<div class="card card-group">
+  <p>
+    <strong><%= group.title %></strong>
+    <span style="float: right; margin-left: 10px;">
+      <% if my_group.present? %>
+        <%= link_to 'Delete','groups/'+group.id.to_s,method: :delete,data: {confirm: 'are you sure you want to delete your group?'} %>
+      <% elsif group.contains_user? @current_user.id %>
+        <%= link_to 'Leave','groups/'+group.id.to_s+'/leave',method: :post %>
+      <% else %>
+        <%= link_to 'Join','groups/'+group.id.to_s+'/join',method: :post %>
+      <% end %>
+    </span>
+    <br/>
+    <% if my_group.blank? %>
+      Creator: <%= link_to group.user.full_name, user_path(group.user) %><br/>
+    <% end %>
+    <%= link_to 'Members: ' + group.users.all.count.to_s, group_path(group) %>
+  </p>
+  <% if my_group.present? && group.users.all.count > 1%>
+    <%= form_with url: groups_path+'/'+group.id.to_s+'/transfer_ownership' do |f| %>
+      <%= collection_select :chatroom,:user_id,group.users.except(@current_user),:id,:full_name %><br/>
+      <%= submit_tag "Transfer ownership", name: nil, class: 'btn btn-default' %>
+    <% end %>
+  <% end %>
+</div>
+
+

@@ -7,6 +7,9 @@ class GroupsController < ApplicationController
     @all_groups = Chatroom.where('title IS NOT NULL and user_id != ?',@current_user.id)
   end
 
+  def show
+    @group = Chatroom.find(params[:id])
+  end
 
   def create
     @new_group = Chatroom.new

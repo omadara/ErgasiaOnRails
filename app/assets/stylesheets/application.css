@@ -183,3 +183,7 @@ p.wrap-content {
     width: 100%;
     margin-bottom: 15px;
 }
+
+.card-group {
+    margin: 7px;
+}
