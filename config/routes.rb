@@ -25,9 +25,9 @@ Rails.application.routes.draw do
 
   get 'groups', to: 'groups#index', as: 'groups'
   post 'groups', to: 'groups#create', as: 'create_group'
-  post 'groups/:id/join', to: 'groups#join'
-  post 'groups/:id/leave', to: 'groups#leave'
-  post 'groups/:id/transfer_ownership', to: 'groups#transfer'
-  delete 'groups/:id', to: 'groups#destroy'
+  post 'group/:id/join', to: 'groups#join', as: 'group_join'
+  post 'group/:id/leave', to: 'groups#leave', as: 'group_leave'
+  post 'group/:id/transfer_ownership', to: 'groups#transfer', as: 'group_transfer'
+  delete 'group/:id', to: 'groups#destroy'
   get 'group/:id', to: 'groups#show', as: 'group'
 end

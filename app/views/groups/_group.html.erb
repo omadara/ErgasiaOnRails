@@ -3,11 +3,11 @@
     <strong><%= group.title %></strong>
     <span style="float: right; margin-left: 10px;">
       <% if my_group.present? %>
-        <%= link_to 'Delete','groups/'+group.id.to_s,method: :delete,data: {confirm: 'are you sure you want to delete your group?'} %>
+        <%= link_to 'Delete', group_path(group.id) , method: :delete,data: {confirm: 'are you sure you want to delete your group?'} %>
       <% elsif group.contains_user? @current_user.id %>
-        <%= link_to 'Leave','groups/'+group.id.to_s+'/leave',method: :post %>
+        <%= link_to 'Leave',group_leave_path(group.id),method: :post %>
       <% else %>
-        <%= link_to 'Join','groups/'+group.id.to_s+'/join',method: :post %>
+        <%= link_to 'Join',group_join_path(group.id),method: :post %>
       <% end %>
     </span>
     <br/>
@@ -17,8 +17,8 @@
     <%= link_to 'Members: ' + group.users.all.count.to_s, group_path(group) %>
   </p>
   <% if my_group.present? && group.users.all.count > 1%>
-    <%= form_with url: groups_path+'/'+group.id.to_s+'/transfer_ownership' do |f| %>
-      <%= collection_select :chatroom,:user_id,group.users.except(@current_user),:id,:full_name %><br/>
+    <%= form_with url: group_transfer_path(group.id), local: true do |f| %>
+      <%= collection_select :chatroom,:user_id,group.users-[@current_user],:id,:full_name %><br/>
       <%= submit_tag "Transfer ownership", name: nil, class: 'btn btn-default' %>
     <% end %>
   <% end %>
